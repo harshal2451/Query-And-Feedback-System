@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.User" table="user" catalog="oep_query" optimistic-lock="version">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="department" class="Tables.Department" fetch="select">
+            <column name="dept_id" not-null="true" />
+        </many-to-one>
+        <property name="userFname" type="string">
+            <column name="user_fname" length="65535" not-null="true" />
+        </property>
+        <property name="userName" type="string">
+            <column name="user_name" length="30" unique="true" />
+        </property>
+        <property name="userPwd" type="string">
+            <column name="user_pwd" length="65535" not-null="true" />
+        </property>
+        <property name="userType" type="string">
+            <column name="user_type" length="20" not-null="true" />
+        </property>
+        <property name="userEmail" type="string">
+            <column name="user_email" length="65535" not-null="true" />
+        </property>
+        <set name="blockUsers" table="block_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.BlockUser" />
+        </set>
+        <set name="questions" table="question" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Question" />
+        </set>
+    </class>
+</hibernate-mapping>

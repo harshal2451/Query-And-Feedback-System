@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.Department" table="department" catalog="oep_query" optimistic-lock="version">
+        <id name="deptId" type="int">
+            <column name="dept_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="deptName" type="string">
+            <column name="dept_name" length="65535" not-null="true" />
+        </property>
+        <set name="blockUsers" table="block_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dept_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.BlockUser" />
+        </set>
+        <set name="subjects" table="subject" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dept_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Subject" />
+        </set>
+        <set name="admins" table="admin" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dept_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Admin" />
+        </set>
+        <set name="questions" table="question" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dept_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Question" />
+        </set>
+        <set name="users" table="user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dept_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.User" />
+        </set>
+    </class>
+</hibernate-mapping>

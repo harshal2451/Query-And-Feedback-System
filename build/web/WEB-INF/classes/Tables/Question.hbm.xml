@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.Question" table="question" catalog="oep_query" optimistic-lock="version">
+        <id name="queId" type="java.lang.Integer">
+            <column name="que_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="department" class="Tables.Department" fetch="select">
+            <column name="dept_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="subject" class="Tables.Subject" fetch="select">
+            <column name="sub_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="Tables.User" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        <property name="queText" type="string">
+            <column name="que_text" length="65535" not-null="true" />
+        </property>
+        <property name="queDate" type="string">
+            <column name="que_date" length="65535" not-null="true" />
+        </property>
+        <property name="queTime" type="string">
+            <column name="que_time" length="65535" not-null="true" />
+        </property>
+        <property name="queStatus" type="string">
+            <column name="que_status" length="10" not-null="true" />
+        </property>
+        <set name="answers" table="answer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="que_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Answer" />
+        </set>
+        <set name="feedbacks" table="feedback" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="que_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Feedback" />
+        </set>
+    </class>
+</hibernate-mapping>

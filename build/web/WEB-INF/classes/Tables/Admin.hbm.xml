@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.Admin" table="admin" catalog="oep_query" optimistic-lock="version">
+        <id name="adminId" type="java.lang.Integer">
+            <column name="admin_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="department" class="Tables.Department" fetch="select">
+            <column name="dept_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="subject" class="Tables.Subject" fetch="select">
+            <column name="sub_id" not-null="true" />
+        </many-to-one>
+        <property name="adminName" type="string">
+            <column name="admin_name" length="65535" not-null="true" />
+        </property>
+        <property name="adminUname" type="string">
+            <column name="admin_uname" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="adminPwd" type="string">
+            <column name="admin_pwd" length="65535" not-null="true" />
+        </property>
+        <property name="adminType" type="string">
+            <column name="admin_type" length="7" not-null="true" />
+        </property>
+        <property name="adminEmail" type="string">
+            <column name="admin_email" length="20" not-null="true" unique="true" />
+        </property>
+        <set name="facultyFeedbacks" table="faculty_feedback" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.FacultyFeedback" />
+        </set>
+        <set name="answers" table="answer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Answer" />
+        </set>
+        <set name="feedbacks" table="feedback" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Feedback" />
+        </set>
+    </class>
+</hibernate-mapping>

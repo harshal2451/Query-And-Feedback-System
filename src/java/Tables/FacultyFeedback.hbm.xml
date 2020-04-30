@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.FacultyFeedback" table="faculty_feedback" catalog="oep_query" optimistic-lock="version">
+        <id name="ffId" type="java.lang.Integer">
+            <column name="ff_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="admin" class="Tables.Admin" fetch="select">
+            <column name="admin_id" not-null="true" />
+        </many-to-one>
+        <property name="adminName" type="string">
+            <column name="admin_name" length="65535" not-null="true" />
+        </property>
+        <property name="rating" type="float">
+            <column name="rating" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="comment" type="string">
+            <column name="comment" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

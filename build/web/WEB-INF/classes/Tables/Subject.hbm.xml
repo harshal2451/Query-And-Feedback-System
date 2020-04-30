@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.Subject" table="subject" catalog="oep_query" optimistic-lock="version">
+        <id name="subId" type="java.lang.Integer">
+            <column name="sub_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="department" class="Tables.Department" fetch="select">
+            <column name="dept_id" not-null="true" />
+        </many-to-one>
+        <property name="subName" type="string">
+            <column name="sub_name" length="65535" not-null="true" />
+        </property>
+        <set name="admins" table="admin" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sub_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Admin" />
+        </set>
+        <set name="questions" table="question" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sub_id" not-null="true" />
+            </key>
+            <one-to-many class="Tables.Question" />
+        </set>
+    </class>
+</hibernate-mapping>

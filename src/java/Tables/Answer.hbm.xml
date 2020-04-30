@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2020 1:59:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Tables.Answer" table="answer" catalog="oep_query" optimistic-lock="version">
+        <id name="ansId" type="java.lang.Integer">
+            <column name="ans_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="admin" class="Tables.Admin" fetch="select">
+            <column name="admin_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="question" class="Tables.Question" fetch="select">
+            <column name="que_id" not-null="true" />
+        </many-to-one>
+        <property name="ansText" type="string">
+            <column name="ans_text" length="65535" not-null="true" />
+        </property>
+        <property name="ansDate" type="string">
+            <column name="ans_date" length="65535" not-null="true" />
+        </property>
+        <property name="ansTime" type="string">
+            <column name="ans_time" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
